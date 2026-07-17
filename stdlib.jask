@@ -1,0 +1,15 @@
+; jask stdlib implementation
+
+function printLine(line: any)
+    print(line)
+    print("\n")
+end
+
+; converts a list to a string
+function stringFrom(list: list)
+    set str = ""
+    for char in list
+            set str = str + char
+    endfor
+    return str
+end
