@@ -1,0 +1,148 @@
+; jask math implementation
+
+function max(n1: number, n2: number)
+    if n1 > n2 return n1 endif
+    if n2 > n1 return n2 endif
+
+    return n1
+end
+
+function min(n1: number, n2: number)
+    if n1 < n2 return n1 endif
+    if n2 < n1 return n2 endif
+
+    return n1
+end
+
+function absolute(n: number)
+    if n < 0 return -n endif
+    return n
+end
+
+function power(base: number, exponent: number)
+    ; edge case, 0^0 is mathematically undefined, often handled as 1
+    if base == 0 and exponent == 0 return 1 endif
+
+    ; edge case, base is 0, exponent negative
+    if base == 0 and exponent < 0 return nil endif
+
+    ; edge case, exponent is 0
+    if exponent == 0 return 1 endif
+
+    ; handle negative exponents
+    set isNegative = false
+    if exponent < 0
+        set isNegative = true
+        set exponent = -exponent
+        set base = 1 / base
+    endif
+
+    set result = 1
+    set currentPower = base
+
+    ; binary Exponentiation (Square-and-Multiply)
+    while exponent > 0
+        ; if the lowest bit of the exponent is 1 (exponent is odd)
+        if (exponent % 2) == 1
+            set result = result * currentPower
+        endif
+
+        ; square the base
+        set currentPower = currentPower * currentPower
+
+        ; divide the exponent by 2 (right bit-shift)
+        set exponent = floor(exponent / 2)
+    endwhile
+
+    return result
+end
+
+; This implementation uses Newtons method.
+; Returns nil by
+; - zero root (n == 0)
+; - an even root of a negative number
+; - a division by zero
+; This algorithm uses floating-point numbers, which inherently cause small precision errors due to the binary
+; representation of decimal fractions under IEEE 754 standard.
+; If you check the results of this, you are adviced to use an approximation.
+function root(x: number, n: number)
+    ; edge case, 0th root is not defined
+    if n == 0 return nil endif
+
+    ; edge case, root of 0 is always 0 for positive n
+    if x == 0
+        if n > 0 return 0 endif
+        return nil
+    endif
+
+    ; edge case, a negative number under an even root does not yield a real number
+    if x < 0 and (n % 2) == 0
+        return nil
+    endif
+
+    ; edge case, handle negative radicands for odd roots
+    set isNegative = false
+    if x < 0
+        set isNegative = true
+        set x = absolute(x)
+    endif
+
+    ; Newtons method
+
+    ; initial guess for the approximation (x is a safe starting point)
+    set guess = x
+
+    ; precision threshold (defines how accurate the result should be)
+    set epsilon = 0.0000001
+
+    ; loop until the difference between steps becomes smaller than epsilon
+    set delta = 1.0
+    while delta > epsilon
+        set nextGuess = (1 / n) * ((n -1) * guess + x / power(guess, n - 1))
+
+        ; calculate the absolute difference from the previous step
+        set delta = absolute(guess - nextGuess)
+
+        ; update the current guess for the next iteration
+        set guess = nextGuess
+    endwhile
+
+    ; restore the sign if necessary
+    if isNegative return -guess endif
+
+    return guess
+end
+
+function squareroot(x: number)
+    return root(x, 2)
+end
+
+function fibonacci(n: number)
+    if n <= 1 return n endif
+    set a = 0
+    set b = 1
+    set i = 2
+    while i <= n
+        set temp = a + b
+        set a = b
+        set b = temp
+        set i = i + 1
+    endwhile
+    return b
+end
+
+; Optimized primality test using wheel factorization.
+function isPrime(n: number)
+    if n <= 1 return false endif
+    if n <= 3 return true endif
+    if (n % 2) == 0 or (n % 3) == 0 return false endif
+
+    set i = 5
+    ; could be solved with a squareroot(n) but this would be much slower because of the calls overhead
+    while i * i <= n
+        if (n % i) == 0 or (n % (i + 2)) == 0 return false endif
+        set i = i + 6
+    endwhile
+
+    return true
+end
