@@ -1,0 +1,99 @@
+set timeTestStarted = clock()
+
+use "../stdlib.jask" as stdlib
+
+stdlib::printLine("----- jask language interpreter comprehensive test cases -----")
+
+; basic tests
+
+assert(true)
+
+assert(false == false)
+
+assert(1 != 0)
+
+; standard tests for setting data types
+
+set number  = 0
+set string  = ""
+set boolean = true
+
+assert(type(number) == "number")
+
+assert(type(string) == "string")
+
+assert(type(boolean) == "boolean")
+
+; test basic calculations
+
+assert(5 * 10 == 50)
+
+assert((100 * 3 + 50) % (20 / 4) - 2 == -2)
+
+; test lists
+
+set myList = list(1, "2", 2 * 1 + 1)
+
+assert(type(list()) == "list")
+
+assert(listSize(myList) == 3)
+
+assert(listGet(myList, 2) == 3)
+
+set myList = listSet(myList, 0, 5)
+assert(listGet(myList, 0) == 5)
+
+; test structs
+
+struct Car
+    set name = ""
+    set hp   = 0
+endstruct
+
+set bmw = Car(name = "BMW", hp = 120)
+
+assert(type(bmw) == "Car")
+assert(bmw->name == "BMW")
+
+set mercedes = bmw update name = "Mercedes"
+
+assert(mercedes->name == "Mercedes")
+
+; test equal()
+
+set a = 1
+set b = 1
+assert((a == b) == true)
+assert((a is b) == false)
+assert((a == 1) == true)
+assert((a is 1) == false)
+
+set a = "Test"
+set b = "Test"
+assert((a == b) == true)
+assert((a is b) == false)
+
+set a = "Test"
+set b = "test"
+assert((a == b) == false)
+
+set a = Car(hp = 100)
+set b = Car(hp = 100)
+assert((a == b) == true)
+assert((a is a) == true)
+assert((a is b) == false)
+
+; test =Number()
+
+assert(toNumber(value = "123") == 123)
+assert(toNumber(value = "-321") == -321)
+
+; test toString()
+
+assert(toString(value = 123) == "123")
+assert(toString(value = -321) == "-321")
+
+; tests finished
+
+set timeDifference = clock() - timeTestStarted
+stdlib::printLine("Execution time: " + timeDifference + " seconds.")
