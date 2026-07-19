@@ -93,6 +93,14 @@ assert(toNumber(value = "-321") == -321)
 assert(toString(value = 123) == "123")
 assert(toString(value = -321) == "-321")
 
+; test readFile()
+
+; assumes, that the interpreter is executed from a directory next to 'jcore'
+; please adapt the path if needed
+set path = "../jcore/test/sample.txt"
+set content = readFile(path)
+assert(content == "Hello, World!")
+
 ; tests finished
 
 set timeDifference = clock() - timeTestStarted
