@@ -1,0 +1,136 @@
+use "../date.jask" as date
+use "../stdlib.jask" as stdlib
+
+set timeStart = clock()
+
+stdlib::printLine("----- jask language interpreter jcore/date test cases -----")
+
+; checkIfYearIsLeapYear()
+
+assert(date::checkIfYearIsLeapYear(2000) == true)
+
+assert(date::checkIfYearIsLeapYear(2028) == true)
+
+assert(date::checkIfYearIsLeapYear(2196) == true)
+
+assert(date::checkIfYearIsLeapYear(1999) == false)
+
+assert(date::checkIfYearIsLeapYear(2026) == false)
+
+assert(date::checkIfYearIsLeapYear(2195) == false)
+
+; getDateFromElapsedSeconds()
+
+assert(date::getDateFromElapsedSeconds(0)->year == 1970)
+
+assert(date::getDateFromElapsedSeconds(0)->month == 1)
+
+assert(date::getDateFromElapsedSeconds(0)->day == 1)
+
+assert(date::getDateFromElapsedSeconds(1781823661)->year == 2026) ; 1781823661 == 18.06.2026
+
+assert(date::getDateFromElapsedSeconds(1781823661)->month == 6)
+
+assert(date::getDateFromElapsedSeconds(1781823661)->day == 18)
+
+assert(date::getDateFromElapsedSeconds(12345678910)->year == 2361) ; 12345678910 == 21.03.2361
+
+assert(date::getDateFromElapsedSeconds(12345678910)->month == 3)
+
+assert(date::getDateFromElapsedSeconds(12345678910)->day == 21)
+
+assert(date::getDateFromElapsedSeconds(-86400)->year == 1969) ; -86400 == 31.12.1969
+
+assert(date::getDateFromElapsedSeconds(-86400)->month == 12)
+
+assert(date::getDateFromElapsedSeconds(-86400)->day == 31)
+
+assert(date::getDateFromElapsedSeconds(-315532800)->year == 1960) ; -315532800 == 02.01.1960
+
+assert(date::getDateFromElapsedSeconds(-315532800)->month == 01)
+
+assert(date::getDateFromElapsedSeconds(-315532800)->day == 02)
+
+; getElapsedSecondsFromDate()
+
+assert(date::getElapsedSecondsFromDate(date::Date(year = 2000, month = 01, day = 4)) == 946944000)
+
+assert(date::getElapsedSecondsFromDate(date::Date(year = 1950, month = 06, day = 12)) == -617155200)
+
+; isDateAfter()
+
+assert(date::isDateAfter(date::Date(year = 2026, month = 12, day = 1), date::Date(year = 2025, month = 12, day = 1)) == true)
+
+assert(date::isDateAfter(date::Date(year = 2025, month = 12, day = 1), date::Date(year = 2026, month = 12, day = 1)) == false)
+
+assert(date::isDateAfter(date::Date(year = 2025, month = 12, day = 1), date::Date(year = 2025, month = 12, day = 1)) == false)
+
+; isDateBefore()
+
+assert(date::isDateBefore(date::Date(year = 2026, month = 12, day = 1), date::Date(year = 2025, month = 12, day = 1)) == false)
+
+assert(date::isDateBefore(date::Date(year = 2025, month = 12, day = 1), date::Date(year = 2026, month = 12, day = 1)) == true)
+
+assert(date::isDateBefore(date::Date(year = 2025, month = 12, day = 1), date::Date(year = 2025, month = 12, day = 1)) == false)
+
+; getDayOfWeek()
+
+assert(date::getDayOfWeek(date::Date(year = 1960, month = 07, day = 11)) == 1)
+
+assert(date::getDayOfWeek(date::Date(year = 2026, month = 07, day = 11)) == 6)
+
+; getWeekOfYear()
+
+assert(date::getWeekOfYear(date::Date(year = 2026, month = 01, day = 01)) == 1)
+
+assert(date::getWeekOfYear(date::Date(year = 2026, month = 07, day = 06)) == 28)
+
+; getDayOfYear()
+
+assert(date::getDayOfYear(date::Date(year = 2026, month = 01, day = 01)) == 1)
+
+assert(date::getDayOfYear(date::Date(year = 2026, month = 12, day = 31)) == 365)
+
+; leap year
+assert(date::getDayOfYear(date::Date(year = 2028, month = 03, day = 01)) == 61)
+
+; addDays()
+
+set oldDate = date::Date(year = 2026, month = 12, day = 31)
+set newDate = date::addDays(oldDate, 1)
+
+assert(newDate->year == 2027 and newDate->month == 01 and newDate->day == 01)
+
+assert(date::addDays(oldDate, -1) == nil)
+
+; subtractDays()
+
+set oldDate = date::Date(year = 2027, month = 1, day = 1)
+set newDate = date::subtractDays(oldDate, 1)
+
+assert(newDate->year == 2026 and newDate->month == 12 and newDate->day == 31)
+
+assert(date::subtractDays(oldDate, -1) == nil)
+
+; getDifferenceBetweenDates()
+
+set date1 = date::Date(year = 2025, month = 06, day = 10)
+set date2 = date::Date(year = 2025, month = 06, day = 9)
+
+assert(date::getDifferenceBetweenDates(date1, date2) == 86400)
+
+; getDateFromString()
+
+set originDate = date::getDateFromElapsedSeconds(clock())
+
+set datestr = date::getStringFromDate(originDate)
+
+set myDate = date::getDateFromString(dateStr = datestr, format = "YYYY-MM-DD")
+
+assert(originDate == myDate)
+
+; finish tests
+
+set timeEnd = clock()
+
+stdlib::printLine("Tests finished in " + (timeEnd - timeStart) + " seconds")
