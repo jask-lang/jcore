@@ -224,9 +224,9 @@ function getWeekOfYear(date: Date)
     set totalDaysThursday = totalDays + daysToThursday
 
     set thursdayDate = getDateFromElapsedSeconds(totalDaysThursday * secondsPerDay)
-    set wochenJahr = thursdayDate->year
+    set weekYear = thursdayDate->year
 
-    set firstJanDate = Date(year = wochenJahr, month = 1, day = 1)
+    set firstJanDate = Date(year = weekYear, month = 1, day = 1)
     set firstJanTotalDays = floor(getElapsedSecondsFromDate(firstJanDate) / secondsPerDay)
 
     set firstJanDayOfWeek = ((firstJanTotalDays + 3) % 7) + 1
