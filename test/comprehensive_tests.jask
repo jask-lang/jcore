@@ -1,8 +1,6 @@
 set timeTestStarted = clock()
 
-use "../stdlib.jask" as stdlib
-
-stdlib::printLine("----- jask language interpreter comprehensive test cases -----")
+printLine("----- jask language interpreter comprehensive test cases -----")
 
 ; basic tests
 
@@ -104,4 +102,4 @@ assert(content == "Hello, World!")
 ; tests finished
 
 set timeDifference = clock() - timeTestStarted
-stdlib::printLine("Execution time: " + timeDifference + " seconds.")
+printLine("Execution time: " + timeDifference + " seconds.")

@@ -1,9 +1,8 @@
 use "../date.jask" as date
-use "../stdlib.jask" as stdlib
 
 set timeStart = clock()
 
-stdlib::printLine("----- jask language interpreter jcore/date test cases -----")
+printLine("----- jask language interpreter jcore/date test cases -----")
 
 ; checkIfYearIsLeapYear()
 
@@ -133,4 +132,4 @@ assert(originDate == myDate)
 
 set timeEnd = clock()
 
-stdlib::printLine("Tests finished in " + (timeEnd - timeStart) + " seconds")
+printLine("Tests finished in " + (timeEnd - timeStart) + " seconds")

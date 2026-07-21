@@ -1,9 +1,8 @@
 use "../math.jask" as math
-use "../stdlib.jask" as stdlib
 
 set timeStart = clock()
 
-stdlib::printLine("----- jask language interpreter jcore/math test cases -----")
+printLine("----- jask language interpreter jcore/math test cases -----")
 
 ; max()
 
@@ -154,4 +153,4 @@ assert(math::isPrime(19) == true)
 
 set timeEnd = clock()
 
-stdlib::printLine("Tests finished in " + (timeEnd - timeStart) + " seconds")
+printLine("Tests finished in " + (timeEnd - timeStart) + " seconds")
