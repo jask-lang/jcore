@@ -96,7 +96,8 @@ assert(toString(value = -321) == "-321")
 ; assumes, that the interpreter is executed from a directory next to 'jcore'
 ; please adapt the path if needed
 set path = "../jcore/test/sample.txt"
-set content = readFile(path)
+set rawContent = readFile(path)
+set content = verify(rawContent, "string")
 assert(content == "Hello, World!")
 
 ; tests finished
