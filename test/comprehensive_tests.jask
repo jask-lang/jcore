@@ -97,8 +97,10 @@ assert(toString(value = -321) == "-321")
 ; please adapt the path if needed
 set path = "../jcore/test/sample.txt"
 set rawContent = readFile(path)
-set content = verify(rawContent, "string")
-assert(content == "Hello, World!")
+set result = verify(rawContent, "string")
+
+assert(result->type  == "OK")
+assert(result->value == "Hello, World!")
 
 ; test writeFile()
 
@@ -107,26 +109,30 @@ assert(content == "Hello, World!")
 set writePath = "../jcore/test/writefile_test.txt"
 assert(writeFile(writePath, "Hello, World!") == nil)
 set rawWritten = readFile(writePath)
-set written = verify(rawWritten, "string")
-assert(written == "Hello, World!")
+set result = verify(rawWritten, "string")
+assert(result->type  == "OK")
+assert(result->value == "Hello, World!")
 
 ; test writeFile() overwrite
 assert(writeFile(writePath, "Overwritten content") == nil)
 set rawOverwritten = readFile(writePath)
-set overwritten = verify(rawOverwritten, "string")
-assert(overwritten == "Overwritten content")
+set result = verify(rawOverwritten, "string")
+assert(result->type  == "OK")
+assert(result->value == "Overwritten content")
 
 ; test writeFile() with empty string
 assert(writeFile(writePath, "") == nil)
 set rawEmpty = readFile(writePath)
 set empty = verify(rawEmpty, "string")
-assert(empty == "")
+assert(empty->type == "OK")
+assert(empty->value == "")
 
 ; test writeFile() with multiline content
 assert(writeFile(writePath, "Line 1\nLine 2\nLine 3") == nil)
 set rawMulti = readFile(writePath)
 set multi = verify(rawMulti, "string")
-assert(multi == "Line 1\nLine 2\nLine 3")
+assert(multi->type == "OK")
+assert(multi->value == "Line 1\nLine 2\nLine 3")
 
 ; tests finished
 
