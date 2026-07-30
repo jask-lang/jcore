@@ -19,10 +19,13 @@ We assume, that you have cloned the interpreter repository next to jcore, so you
 ├── interpreter/
 └── jcore/
     └── test/
-        ├── comprehensive_tests.jask
+        ├── test_basics.jask
+        ├── test_date.jask
+        ├── test_math.jask
+[...]
 ```
-For example, run the comprehensive test cases from your *interpreter* directory:
+For example, run the basic tests from your *interpreter* directory:
 ```bash
-dotnet run --allow-stdout --allow-stdin --allow-read --allow-write --input="../jcore/test/comprehensive_tests.jask"
+dotnet run --allow-stdout --allow-stdin --allow-read --allow-write --input="../jcore/test/test_basics.jask"
 ```
 Have fun scripting jask!
