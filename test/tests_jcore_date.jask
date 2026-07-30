@@ -1,4 +1,4 @@
-use "../date.jask" as date
+use "jcore/date.jask" as date
 
 set timeStart = clock()
 
