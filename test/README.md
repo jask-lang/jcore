@@ -5,11 +5,11 @@ In order to execute the tests it is assumed, that the interpreter is executed ne
 ├── interpreter/
 └── jcore/
     └── test/
-        ├── comprehensive_tests.jask
-        ├── tests_jcore_date.jask
-        └── tests_jcore_math.jask
+        ├── test_basics.jask
+        ├── test_date.jask
+        └── test_math.jask
 ```
 Run the *comprehensive_tests.jask*:
 ```terminal
-dotnet run --allow-stdout --allow-read --input="../jcore/test/comprehensive_tests.jask"
+dotnet run --allow-stdout --allow-read --input="../jcore/test/test_basics.jask"
 ```

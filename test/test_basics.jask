@@ -1,6 +1,6 @@
 set timeTestStarted = clock()
 
-printLine("----- jask language interpreter comprehensive test cases -----")
+printLine("----- jask language interpreter basic test cases -----")
 
 ; basic tests
 
