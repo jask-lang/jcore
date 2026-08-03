@@ -96,8 +96,9 @@ assert(toString(value = -321) == "-321")
 ; assumes, that the interpreter is executed from a directory next to 'jcore'
 ; please adapt the path if needed
 set path = "../jcore/test/sample.txt"
-set rawContent = readFile(path)
-set result = verify(rawContent, "string")
+set readResult = readFile(path)
+assert(readResult.type == "OK")
+set result = verify(readResult.value, "string")
 
 assert(result.type  == "OK")
 assert(result.value == "Hello, World!")
@@ -108,29 +109,33 @@ assert(result.value == "Hello, World!")
 ; please adapt the path if needed
 set writePath = "../jcore/test/writefile_test.txt"
 assert(writeFile(writePath, "Hello, World!").type == "OK")
-set rawWritten = readFile(writePath)
-set result = verify(rawWritten, "string")
+set writeResult = readFile(writePath)
+assert(writeResult.type == "OK")
+set result = verify(writeResult.value, "string")
 assert(result.type  == "OK")
 assert(result.value == "Hello, World!")
 
 ; test writeFile() overwrite
 assert(writeFile(writePath, "Overwritten content").type == "OK")
-set rawOverwritten = readFile(writePath)
-set result = verify(rawOverwritten, "string")
+set readResult = readFile(writePath)
+assert(readResult.type == "OK")
+set result = verify(readResult.value, "string")
 assert(result.type  == "OK")
 assert(result.value == "Overwritten content")
 
 ; test writeFile() with empty string
 assert(writeFile(writePath, "").type == "OK")
-set rawEmpty = readFile(writePath)
-set empty = verify(rawEmpty, "string")
+set readResult = readFile(writePath)
+assert(readResult.type == "OK")
+set empty = verify(readResult.value, "string")
 assert(empty.type == "OK")
 assert(empty.value == "")
 
 ; test writeFile() with multiline content
 assert(writeFile(writePath, "Line 1\nLine 2\nLine 3").type == "OK")
-set rawMulti = readFile(writePath)
-set multi = verify(rawMulti, "string")
+set readResult = readFile(writePath)
+assert(readResult.type == "OK")
+set multi = verify(readResult.value, "string")
 assert(multi.type == "OK")
 assert(multi.value == "Line 1\nLine 2\nLine 3")
 
