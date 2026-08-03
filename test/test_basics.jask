@@ -107,28 +107,28 @@ assert(result.value == "Hello, World!")
 ; assumes, that the interpreter is executed from a directory next to 'jcore'
 ; please adapt the path if needed
 set writePath = "../jcore/test/writefile_test.txt"
-assert(writeFile(writePath, "Hello, World!") == nil)
+assert(writeFile(writePath, "Hello, World!").type == "OK")
 set rawWritten = readFile(writePath)
 set result = verify(rawWritten, "string")
 assert(result.type  == "OK")
 assert(result.value == "Hello, World!")
 
 ; test writeFile() overwrite
-assert(writeFile(writePath, "Overwritten content") == nil)
+assert(writeFile(writePath, "Overwritten content").type == "OK")
 set rawOverwritten = readFile(writePath)
 set result = verify(rawOverwritten, "string")
 assert(result.type  == "OK")
 assert(result.value == "Overwritten content")
 
 ; test writeFile() with empty string
-assert(writeFile(writePath, "") == nil)
+assert(writeFile(writePath, "").type == "OK")
 set rawEmpty = readFile(writePath)
 set empty = verify(rawEmpty, "string")
 assert(empty.type == "OK")
 assert(empty.value == "")
 
 ; test writeFile() with multiline content
-assert(writeFile(writePath, "Line 1\nLine 2\nLine 3") == nil)
+assert(writeFile(writePath, "Line 1\nLine 2\nLine 3").type == "OK")
 set rawMulti = readFile(writePath)
 set multi = verify(rawMulti, "string")
 assert(multi.type == "OK")
