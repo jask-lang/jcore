@@ -81,7 +81,7 @@ assert(math::power(base = 0, exponent = -2) == nil)
 
 ; root() and squareroot()
 
-function isClose(actual: number, exptected: number) return math::absolute(actual - exptected) < 0.00001 end
+function isClose(actual: number, exptected: number) return math::absolute(actual - exptected) < 0.00001 endfunction
 
 ; squareroot()
 

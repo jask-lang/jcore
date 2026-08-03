@@ -5,19 +5,19 @@ function max(n1: number, n2: number)
     if n2 > n1 return n2 endif
 
     return n1
-end
+endfunction
 
 function min(n1: number, n2: number)
     if n1 < n2 return n1 endif
     if n2 < n1 return n2 endif
 
     return n1
-end
+endfunction
 
 function absolute(n: number)
     if n < 0 return -n endif
     return n
-end
+endfunction
 
 function power(base: number, exponent: number)
     ; edge case, 0^0 is mathematically undefined, often handled as 1
@@ -55,7 +55,7 @@ function power(base: number, exponent: number)
     endwhile
 
     return result
-end
+endfunction
 
 ; This implementation uses Newtons method.
 ; Returns nil by
@@ -111,11 +111,11 @@ function root(x: number, n: number)
     if isNegative return -guess endif
 
     return guess
-end
+endfunction
 
 function squareroot(x: number)
     return root(x, 2)
-end
+endfunction
 
 function fibonacci(n: number)
     if n <= 1 return n endif
@@ -129,7 +129,7 @@ function fibonacci(n: number)
         set i = i + 1
     endwhile
     return b
-end
+endfunction
 
 ; Optimized primality test using wheel factorization.
 function isPrime(n: number)
@@ -145,4 +145,4 @@ function isPrime(n: number)
     endwhile
 
     return true
-end
+endfunction

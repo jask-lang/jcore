@@ -16,11 +16,11 @@ function _getNumberOfDaysPerMonth(year: number)
     set febDays = 28
     if checkIfYearIsLeapYear(year) set febDays = 29 endif
     return list(31, febDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
-end
+endfunction
 
 ; implementation of functions
 
-function checkIfYearIsLeapYear(year: number) return ((year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)) end
+function checkIfYearIsLeapYear(year: number) return ((year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)) endfunction
 
 function isValid(date: Date)
     ; sanity checks
@@ -35,7 +35,7 @@ function isValid(date: Date)
     return (date. year == reconstructedDate.year)
        and (date.month == reconstructedDate.month)
        and (date.day   == reconstructedDate.day)
-end
+endfunction
 
 ; consumes elapsed seconds since the 01.01.1970
 ; returns a Date struct
@@ -76,7 +76,7 @@ function getDateFromElapsedSeconds(elapsedSeconds: number)
     endwhile
 
     return Date(year = year, month = month + 1, day = totalDays + 1)
-end
+endfunction
 
 ; consumes a date
 ; returns elapsed seconds since the 01.01.1970 from a given date
@@ -127,7 +127,7 @@ function getElapsedSecondsFromDate(date: Date)
     set totalDays = totalDays + (date.day - 1)
     
     return totalDays * secondsPerDay
-end
+endfunction
 
 function isDateAfter(date1: Date, date2: Date)
     if date1.year > date2.year return true endif
@@ -137,7 +137,7 @@ function isDateAfter(date1: Date, date2: Date)
     if date1.month < date2.month return false endif
 
     return date1.day > date2.day
-end
+endfunction
 
 function isDateBefore(date1: Date, date2: Date)
     if date1.year < date2.year return true endif
@@ -147,7 +147,7 @@ function isDateBefore(date1: Date, date2: Date)
     if date1.month > date2.month return false endif
 
     return date1.day < date2.day
-end
+endfunction
 
 function addDays(date: Date, days: number)
     ; sanity check
@@ -161,7 +161,7 @@ function addDays(date: Date, days: number)
 
     ; create new date
     return getDateFromElapsedSeconds(seconds)
-end
+endfunction
 
 function subtractDays(date: Date, days: number)
     ; sanity check
@@ -175,14 +175,14 @@ function subtractDays(date: Date, days: number)
 
     ; create new date
     return getDateFromElapsedSeconds(seconds)
-end
+endfunction
 
 function getDifferenceBetweenDates(date1: Date, date2: Date)
     set date1Seconds = getElapsedSecondsFromDate(date1)
     set date2Seconds = getElapsedSecondsFromDate(date2)
 
     return date1Seconds - date2Seconds
-end
+endfunction
 
 ; calculates the day of the week for the input date
 ; (1 = Monday, 2 = Tuesday, ..., 7 = Sunday)
@@ -192,7 +192,7 @@ function getDayOfWeek(date: Date)
     ; since 01.01.1970 was a Thursday (4), offset by +3 before %
     set dayOfWeek = ((totalDays + 3) % 7) + 1
     return dayOfWeek
-end
+endfunction
 
 function getDayOfYear(date: Date)
     set numberOfDaysPerMonth = _getNumberOfDaysPerMonth(date.year)
@@ -208,7 +208,7 @@ function getDayOfYear(date: Date)
     set dayOfYear = dayOfYear + date.day
 
     return dayOfYear
-end
+endfunction
 
 ; calculates the ISO 8601 week number for a given date
 ;;
@@ -237,7 +237,7 @@ function getWeekOfYear(date: Date)
     endif
 
     return floor((totalDaysThursday - firstThursdayTotalDays) / 7) + 1
-end
+endfunction
 
 function getDateFromString(dateStr: string, format: string)
     set yearIdx  = stringGetIndexOf(format, "YYYY")
@@ -261,7 +261,7 @@ function getDateFromString(dateStr: string, format: string)
     endif
 
     return parsedDate
-end
+endfunction
 
 function getStringFromDate(date: Date)
     set dateString = date.year + "-"
@@ -277,13 +277,13 @@ function getStringFromDate(date: Date)
     endif
 
    return dateString + date.day
-end
+endfunction
 
 function print(date: Date)
     print(stringFromDate(date))
-end
+endfunction
 
 function printLine(date: Date)
     print(date)
     print("\n")
-end
+endfunction
