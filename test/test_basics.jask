@@ -51,11 +51,11 @@ endstruct
 set bmw = Car(name = "BMW", hp = 120)
 
 assert(type(bmw) == "Car")
-assert(bmw->name == "BMW")
+assert(bmw.name == "BMW")
 
 set mercedes = bmw update name = "Mercedes"
 
-assert(mercedes->name == "Mercedes")
+assert(mercedes.name == "Mercedes")
 
 ; test equal()
 
@@ -99,8 +99,8 @@ set path = "../jcore/test/sample.txt"
 set rawContent = readFile(path)
 set result = verify(rawContent, "string")
 
-assert(result->type  == "OK")
-assert(result->value == "Hello, World!")
+assert(result.type  == "OK")
+assert(result.value == "Hello, World!")
 
 ; test writeFile()
 
@@ -110,29 +110,29 @@ set writePath = "../jcore/test/writefile_test.txt"
 assert(writeFile(writePath, "Hello, World!") == nil)
 set rawWritten = readFile(writePath)
 set result = verify(rawWritten, "string")
-assert(result->type  == "OK")
-assert(result->value == "Hello, World!")
+assert(result.type  == "OK")
+assert(result.value == "Hello, World!")
 
 ; test writeFile() overwrite
 assert(writeFile(writePath, "Overwritten content") == nil)
 set rawOverwritten = readFile(writePath)
 set result = verify(rawOverwritten, "string")
-assert(result->type  == "OK")
-assert(result->value == "Overwritten content")
+assert(result.type  == "OK")
+assert(result.value == "Overwritten content")
 
 ; test writeFile() with empty string
 assert(writeFile(writePath, "") == nil)
 set rawEmpty = readFile(writePath)
 set empty = verify(rawEmpty, "string")
-assert(empty->type == "OK")
-assert(empty->value == "")
+assert(empty.type == "OK")
+assert(empty.value == "")
 
 ; test writeFile() with multiline content
 assert(writeFile(writePath, "Line 1\nLine 2\nLine 3") == nil)
 set rawMulti = readFile(writePath)
 set multi = verify(rawMulti, "string")
-assert(multi->type == "OK")
-assert(multi->value == "Line 1\nLine 2\nLine 3")
+assert(multi.type == "OK")
+assert(multi.value == "Line 1\nLine 2\nLine 3")
 
 ; tests finished
 

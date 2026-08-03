@@ -24,17 +24,17 @@ function checkIfYearIsLeapYear(year: number) return ((year % 4 == 0 and year % 1
 
 function isValid(date: Date)
     ; sanity checks
-    if date->month < 1 or date->month > 12 return false endif
-    if date->day < 1   or date->day > 31   return false endif
-    if date->year < 1 or date->year > 9999 return false endif
+    if date.month < 1 or date.month > 12 return false endif
+    if date.day < 1   or date.day > 31   return false endif
+    if date.year < 1 or date.year > 9999 return false endif
 
     ; round trip
     set seconds = getElapsedSecondsFromDate(date)
     set reconstructedDate = getDateFromElapsedSeconds(seconds)
 
-    return (date-> year == reconstructedDate->year)
-       and (date->month == reconstructedDate->month)
-       and (date->day   == reconstructedDate->day)
+    return (date. year == reconstructedDate.year)
+       and (date.month == reconstructedDate.month)
+       and (date.day   == reconstructedDate.day)
 end
 
 ; consumes elapsed seconds since the 01.01.1970
@@ -84,10 +84,10 @@ function getElapsedSecondsFromDate(date: Date)
     set totalDays = 0
     set baseYear = 1970
 
-    set numberOfDaysPerMonth = _getNumberOfDaysPerMonth(date->year)
+    set numberOfDaysPerMonth = _getNumberOfDaysPerMonth(date.year)
 
-    if date->year < baseYear
-        set runningYear = date->year
+    if date.year < baseYear
+        set runningYear = date.year
         while runningYear < baseYear
             set daysInYear = 365
             if checkIfYearIsLeapYear(runningYear)
@@ -98,18 +98,18 @@ function getElapsedSecondsFromDate(date: Date)
         endwhile
 
         set runningMonth = 1
-        while runningMonth < date->month
+        while runningMonth < date.month
             set totalDays = totalDays + listGet(numberOfDaysPerMonth, runningMonth - 1)
             set runningMonth = runningMonth + 1
         endwhile
 
-        set totalDays = totalDays + (date->day - 1)
+        set totalDays = totalDays + (date.day - 1)
 
         return totalDays * secondsPerDay
     endif
 
     set runningYear = baseYear
-    while runningYear < date->year
+    while runningYear < date.year
         set daysInYear = 365
         if checkIfYearIsLeapYear(runningYear)
             set daysInYear = 366
@@ -119,34 +119,34 @@ function getElapsedSecondsFromDate(date: Date)
     endwhile
 
     set runningMonth = 1
-    while runningMonth < date->month
+    while runningMonth < date.month
         set totalDays = totalDays + listGet(numberOfDaysPerMonth, runningMonth - 1)
         set runningMonth = runningMonth + 1
     endwhile
 
-    set totalDays = totalDays + (date->day - 1)
+    set totalDays = totalDays + (date.day - 1)
     
     return totalDays * secondsPerDay
 end
 
 function isDateAfter(date1: Date, date2: Date)
-    if date1->year > date2->year return true endif
-    if date1->year < date2->year return false endif
+    if date1.year > date2.year return true endif
+    if date1.year < date2.year return false endif
 
-    if date1->month > date2->month return true endif
-    if date1->month < date2->month return false endif
+    if date1.month > date2.month return true endif
+    if date1.month < date2.month return false endif
 
-    return date1->day > date2->day
+    return date1.day > date2.day
 end
 
 function isDateBefore(date1: Date, date2: Date)
-    if date1->year < date2->year return true endif
-    if date1->year > date2->year return false endif
+    if date1.year < date2.year return true endif
+    if date1.year > date2.year return false endif
 
-    if date1->month < date2->month return true endif
-    if date1->month > date2->month return false endif
+    if date1.month < date2.month return true endif
+    if date1.month > date2.month return false endif
 
-    return date1->day < date2->day
+    return date1.day < date2.day
 end
 
 function addDays(date: Date, days: number)
@@ -195,17 +195,17 @@ function getDayOfWeek(date: Date)
 end
 
 function getDayOfYear(date: Date)
-    set numberOfDaysPerMonth = _getNumberOfDaysPerMonth(date->year)
+    set numberOfDaysPerMonth = _getNumberOfDaysPerMonth(date.year)
 
     set dayOfYear = 0
     set currentMonth = 1
 
-    while currentMonth < date->month
+    while currentMonth < date.month
         set dayOfYear = dayOfYear + listGet(numberOfDaysPerMonth, currentMonth - 1)
         set currentMonth = currentMonth + 1
     endwhile
 
-    set dayOfYear = dayOfYear + date->day
+    set dayOfYear = dayOfYear + date.day
 
     return dayOfYear
 end
@@ -224,7 +224,7 @@ function getWeekOfYear(date: Date)
     set totalDaysThursday = totalDays + daysToThursday
 
     set thursdayDate = getDateFromElapsedSeconds(totalDaysThursday * secondsPerDay)
-    set weekYear = thursdayDate->year
+    set weekYear = thursdayDate.year
 
     set firstJanDate = Date(year = weekYear, month = 1, day = 1)
     set firstJanTotalDays = floor(getElapsedSecondsFromDate(firstJanDate) / secondsPerDay)
@@ -264,19 +264,19 @@ function getDateFromString(dateStr: string, format: string)
 end
 
 function getStringFromDate(date: Date)
-    set dateString = date->year + "-"
+    set dateString = date.year + "-"
 
-    if date->month < 10
+    if date.month < 10
         set dateString = dateString + "0"
     endif
 
-    set dateString = dateString + date->month + "-"
+    set dateString = dateString + date.month + "-"
 
-    if date->day < 10
+    if date.day < 10
         set dateString = dateString + "0"
     endif
 
-   return dateString + date->day
+   return dateString + date.day
 end
 
 function print(date: Date)

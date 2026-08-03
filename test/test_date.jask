@@ -20,35 +20,35 @@ assert(date::checkIfYearIsLeapYear(2195) == false)
 
 ; getDateFromElapsedSeconds()
 
-assert(date::getDateFromElapsedSeconds(0)->year == 1970)
+assert(date::getDateFromElapsedSeconds(0).year == 1970)
 
-assert(date::getDateFromElapsedSeconds(0)->month == 1)
+assert(date::getDateFromElapsedSeconds(0).month == 1)
 
-assert(date::getDateFromElapsedSeconds(0)->day == 1)
+assert(date::getDateFromElapsedSeconds(0).day == 1)
 
-assert(date::getDateFromElapsedSeconds(1781823661)->year == 2026) ; 1781823661 == 18.06.2026
+assert(date::getDateFromElapsedSeconds(1781823661).year == 2026) ; 1781823661 == 18.06.2026
 
-assert(date::getDateFromElapsedSeconds(1781823661)->month == 6)
+assert(date::getDateFromElapsedSeconds(1781823661).month == 6)
 
-assert(date::getDateFromElapsedSeconds(1781823661)->day == 18)
+assert(date::getDateFromElapsedSeconds(1781823661).day == 18)
 
-assert(date::getDateFromElapsedSeconds(12345678910)->year == 2361) ; 12345678910 == 21.03.2361
+assert(date::getDateFromElapsedSeconds(12345678910).year == 2361) ; 12345678910 == 21.03.2361
 
-assert(date::getDateFromElapsedSeconds(12345678910)->month == 3)
+assert(date::getDateFromElapsedSeconds(12345678910).month == 3)
 
-assert(date::getDateFromElapsedSeconds(12345678910)->day == 21)
+assert(date::getDateFromElapsedSeconds(12345678910).day == 21)
 
-assert(date::getDateFromElapsedSeconds(-86400)->year == 1969) ; -86400 == 31.12.1969
+assert(date::getDateFromElapsedSeconds(-86400).year == 1969) ; -86400 == 31.12.1969
 
-assert(date::getDateFromElapsedSeconds(-86400)->month == 12)
+assert(date::getDateFromElapsedSeconds(-86400).month == 12)
 
-assert(date::getDateFromElapsedSeconds(-86400)->day == 31)
+assert(date::getDateFromElapsedSeconds(-86400).day == 31)
 
-assert(date::getDateFromElapsedSeconds(-315532800)->year == 1960) ; -315532800 == 02.01.1960
+assert(date::getDateFromElapsedSeconds(-315532800).year == 1960) ; -315532800 == 02.01.1960
 
-assert(date::getDateFromElapsedSeconds(-315532800)->month == 01)
+assert(date::getDateFromElapsedSeconds(-315532800).month == 01)
 
-assert(date::getDateFromElapsedSeconds(-315532800)->day == 02)
+assert(date::getDateFromElapsedSeconds(-315532800).day == 02)
 
 ; getElapsedSecondsFromDate()
 
@@ -98,7 +98,7 @@ assert(date::getDayOfYear(date::Date(year = 2028, month = 03, day = 01)) == 61)
 set oldDate = date::Date(year = 2026, month = 12, day = 31)
 set newDate = date::addDays(oldDate, 1)
 
-assert(newDate->year == 2027 and newDate->month == 01 and newDate->day == 01)
+assert(newDate.year == 2027 and newDate.month == 01 and newDate.day == 01)
 
 assert(date::addDays(oldDate, -1) == nil)
 
@@ -107,7 +107,7 @@ assert(date::addDays(oldDate, -1) == nil)
 set oldDate = date::Date(year = 2027, month = 1, day = 1)
 set newDate = date::subtractDays(oldDate, 1)
 
-assert(newDate->year == 2026 and newDate->month == 12 and newDate->day == 31)
+assert(newDate.year == 2026 and newDate.month == 12 and newDate.day == 31)
 
 assert(date::subtractDays(oldDate, -1) == nil)
 
