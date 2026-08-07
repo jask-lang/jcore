@@ -1,156 +1,97 @@
 use "jcore/math.jask" as math
 
-set timeStart = clock()
-
-printLine("----- jask language interpreter jcore/math test cases -----")
-
-; max()
-
+printLine("=== max ===")
 assert(math::max(1, 2) == 2)
-
 assert(math::max(2, 1) == 2)
-
 assert(math::max(2, 2) == 2)
-
 assert(math::max(2.123, 2) == 2.123)
-
 assert(math::max(2, 2.321) == 2.321)
+printLine("passed")
 
-; min()
-
+printLine("=== min ===")
 assert(math::min(1, 2) == 1)
-
 assert(math::min(2, 1) == 1)
-
 assert(math::min(2, 2) == 2)
-
 assert(math::min(2.123, 2.321) == 2.123)
+printLine("passed")
 
-assert(math::min(2.123, 2.321) == 2.123)
-
-; absolute()
-
+printLine("=== absolute ===")
 assert(math::absolute(5) == 5)
-
 assert(math::absolute(-5) == 5)
-
 assert(math::absolute(5.123) == 5.123)
-
 assert(math::absolute(-5.123) == 5.123)
+printLine("passed")
 
-; power()
-
+printLine("=== power ===")
 ; positive and even
 assert(math::power(base = 2, exponent = 4) == 16)
-
 ; positive and odd
 assert(math::power(base = 3, exponent = 3) == 27)
-
 ; big exponent
 assert(math::power(base = 2, exponent = 10) == 1024)
-
 ; negative base, even exponent
 assert(math::power(base = -2, exponent = 4) == 16)
-
 ; negative base, odd exponent
 assert(math::power(base = -2, exponent = 3) == -8)
-
 ; base is 0
 assert(math::power(base = 0, exponent = 5) == 0)
-
 ; exponent is 0
 assert(math::power(base = 5, exponent = 0) == 1)
-
 ; defined as 1 by IEEE 754
 assert(math::power(base = 0, exponent = 0) == 1)
-
 ; base is 1
 assert(math::power(base = 1, exponent = 1000) == 1)
-
 ; base is -1
 assert(math::power(base = -1, exponent = 101) == -1)
-
 ; default negative
 assert(math::power(base = 2, exponent = -2) == 0.25)
-
 ; negative base, negative exponent
 assert(math::power(base = -2, exponent = -3) == -0.125)
-
 ; base is 0, exponent is negative
 assert(math::power(base = 0, exponent = -2) == nil)
+printLine("passed")
 
-; root() and squareroot()
-
-function isClose(actual: number, exptected: number) return math::absolute(actual - exptected) < 0.00001 endfunction
-
-; squareroot()
-
+printLine("=== squareroot ===")
+function isClose(actual: number, expected: number) return math::absolute(actual - expected) < 0.00001 endfunction
 assert(isClose(math::squareroot(4), 2.0))
-
 assert(isClose(math::squareroot(9), 3.0))
-
 assert(isClose(math::squareroot(0.25), 0.5))
+printLine("passed")
 
-; root()
-
+printLine("=== root ===")
 assert(isClose(math::root(8, 3), 2.0))
-
 assert(isClose(math::root(81, 4), 3.0))
-
 assert(isClose(math::root(32, 5), 2.0))
-
 assert(isClose(math::root(0, 2), 0.0))
-
 assert(isClose(math::root(1, 2), 1.0))
-
 assert(isClose(math::root(1, 100), 1.0))
-
 assert(isClose(math::root(-8, 3), -2.0))
-
 assert(isClose(math::root(-32, 5), -2.0))
-
 assert(math::root(16, 0) == nil)
-
 assert(math::root(-4, 2) == nil)
-
 assert(math::root(0, -2) == nil)
+printLine("passed")
 
-; fibonacci()
-
+printLine("=== fibonacci ===")
 assert(math::fibonacci(0) == 0)
-
 assert(math::fibonacci(5) == 5)
-
 assert(math::fibonacci(10) == 55)
-
 assert(math::fibonacci(30) == 832040)
+printLine("passed")
 
-; isPrime()
-
+printLine("=== isPrime ===")
 assert(math::isPrime(-5) == false)
-
 assert(math::isPrime(0) == false)
-
 assert(math::isPrime(1) == false)
-
 assert(math::isPrime(4) == false)
-
 assert(math::isPrime(6) == false)
-
 assert(math::isPrime(9) == false)
-
 assert(math::isPrime(15) == false)
-
 assert(math::isPrime(5) == true)
-
 assert(math::isPrime(7) == true)
-
 assert(math::isPrime(11) == true)
-
 assert(math::isPrime(19) == true)
+printLine("passed")
 
-; finish tests
-
-set timeEnd = clock()
-
-printLine("Tests finished in " + (timeEnd - timeStart) + " seconds")
+printLine("")
+printLine("=== ALL MATH TESTS PASSED ===")
