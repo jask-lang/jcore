@@ -1,4 +1,5 @@
 ; jask date implementation
+use "jcore/string" as str
 
 struct Date
     set day = 1
@@ -240,15 +241,15 @@ function getWeekOfYear(date: Date)
 endfunction
 
 function getDateFromString(dateStr: string, format: string)
-    set yearIdx  = stringGetIndexOf(format, "YYYY")
-    set monthIdx = stringGetIndexOf(format, "MM")
-    set dayIdx   = stringGetIndexOf(format, "DD")
+    set yearIdx  = str::indexOf(format, "YYYY")
+    set monthIdx = str::indexOf(format, "MM")
+    set dayIdx   = str::indexOf(format, "DD")
 
     if yearIdx == -1 or monthIdx == -1 or dayIdx == -1 return nil endif
 
-    set yearStr  = stringGetSubstring(dateStr, yearIdx, 4)
-    set monthStr = stringGetSubstring(dateStr, monthIdx, 2)
-    set dayStr   = stringGetSubstring(dateStr, dayIdx, 2)
+    set yearStr  = str::substring(dateStr, yearIdx, 4)
+    set monthStr = str::substring(dateStr, monthIdx, 2)
+    set dayStr   = str::substring(dateStr, dayIdx, 2)
 
     set yearVal  = toNumber(yearStr)
     set monthVal = toNumber(monthStr)
