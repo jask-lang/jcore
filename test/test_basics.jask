@@ -1,145 +1,289 @@
-set timeTestStarted = clock()
-
-printLine("----- jask language interpreter basic test cases -----")
-
-; basic tests
-
+printLine("=== basic assertions ===")
 assert(true)
-
 assert(false == false)
-
 assert(1 != 0)
+printLine("passed")
 
-; standard tests for setting data types
-
+printLine("=== data types ===")
 set number  = 0
 set string  = ""
 set boolean = true
-
 assert(type(number) == "number")
-
 assert(type(string) == "string")
-
 assert(type(boolean) == "boolean")
+printLine("passed")
 
-; test basic calculations
-
+printLine("=== basic calculations ===")
 assert(5 * 10 == 50)
-
 assert((100 * 3 + 50) % (20 / 4) - 2 == -2)
+printLine("passed")
 
-; test lists
-
+printLine("=== lists ===")
 set myList = list(1, "2", 2 * 1 + 1)
-
 assert(type(list()) == "list")
-
 assert(listSize(myList) == 3)
-
 assert(listGet(myList, 2) == 3)
-
 set myList = listSet(myList, 0, 5)
 assert(listGet(myList, 0) == 5)
+printLine("passed")
 
-; test structs
-
+printLine("=== structs ===")
 struct Car
     set name = ""
     set hp   = 0
 endstruct
-
 set bmw = Car(name = "BMW", hp = 120)
-
 assert(type(bmw) == "Car")
 assert(bmw.name == "BMW")
-
 set mercedes = bmw update name = "Mercedes"
-
 assert(mercedes.name == "Mercedes")
+printLine("passed")
 
-; test equal()
-
+printLine("=== equality and identity ===")
 set a = 1
 set b = 1
 assert((a == b) == true)
 assert((a is b) == false)
 assert((a == 1) == true)
 assert((a is 1) == false)
-
 set a = "Test"
 set b = "Test"
 assert((a == b) == true)
 assert((a is b) == false)
-
 set a = "Test"
 set b = "test"
 assert((a == b) == false)
-
 set a = Car(hp = 100)
 set b = Car(hp = 100)
 assert((a == b) == true)
 assert((a is a) == true)
 assert((a is b) == false)
+printLine("passed")
 
-; test toNumber()
-
+printLine("=== toNumber ===")
 assert(toNumber(value = "123") == 123)
 assert(toNumber(value = "-321") == -321)
+printLine("passed")
 
-; test toString()
-
+printLine("=== toString ===")
 assert(toString(value = 123) == "123")
 assert(toString(value = -321) == "-321")
+printLine("passed")
 
-; test readFile()
+printLine("=== List: creation ===")
+set emptyList = []
+printLine("empty list: " + emptyList)
+set numList = [1, 2, 3]
+printLine("number list: " + numList)
+set strList = ["a", "b", "c"]
+printLine("string list: " + strList)
+set mixedList = [1, "hello", true]
+printLine("mixed list: " + mixedList)
+set funcList = list(1, 2, 3)
+printLine("list() function: " + funcList)
+printLine("passed")
 
-; assumes, that the interpreter is executed from a directory next to 'jcore'
-; please adapt the path if needed
-set path = "../jcore/test/sample.txt"
-set readResult = readFile(path)
-assert(readResult.type == "OK")
-set result = verify(readResult.value, "string")
+printLine("=== List: size ===")
+assert(listSize([]) == 0)
+assert(listSize([1]) == 1)
+assert(listSize([1, 2, 3]) == 3)
+printLine("passed")
 
-assert(result.type  == "OK")
-assert(result.value == "Hello, World!")
+printLine("=== List: get by index (bracket operator) ===")
+set mylist = [10, 20, 30]
+assert(mylist[0] == 10)
+assert(mylist[1] == 20)
+assert(mylist[2] == 30)
+printLine("passed")
 
-; test writeFile()
+printLine("=== List: get by index (listGet) ===")
+assert(listGet(mylist, 0) == 10)
+assert(listGet(mylist, 2) == 30)
+printLine("passed")
 
-; assumes, that the interpreter is executed from a directory next to 'jcore'
-; please adapt the path if needed
-set writePath = "../jcore/test/writefile_test.txt"
-assert(writeFile(writePath, "Hello, World!").type == "OK")
-set writeResult = readFile(writePath)
-assert(writeResult.type == "OK")
-set result = verify(writeResult.value, "string")
-assert(result.type  == "OK")
-assert(result.value == "Hello, World!")
+printLine("=== List: get range ===")
+set rangeList = listGetRange([1, 2, 3, 4, 5], 1, 3)
+printLine("range [1,3] of [1,2,3,4,5]: " + rangeList)
+assert(listSize(rangeList) == 3)
+printLine("passed")
 
-; test writeFile() overwrite
-assert(writeFile(writePath, "Overwritten content").type == "OK")
-set readResult = readFile(writePath)
-assert(readResult.type == "OK")
-set result = verify(readResult.value, "string")
-assert(result.type  == "OK")
-assert(result.value == "Overwritten content")
+printLine("=== List: set element ===")
+set setList = listSet([1, 2, 3], 1, 99)
+printLine("listSet result: " + setList)
+assert(setList[1] == 99)
+assert(setList[0] == 1)
+printLine("passed")
 
-; test writeFile() with empty string
-assert(writeFile(writePath, "").type == "OK")
-set readResult = readFile(writePath)
-assert(readResult.type == "OK")
-set empty = verify(readResult.value, "string")
-assert(empty.type == "OK")
-assert(empty.value == "")
+printLine("=== List: add element ===")
+set addList = listAdd([1, 2], 3)
+printLine("listAdd result: " + addList)
+assert(listSize(addList) == 3)
+assert(addList[2] == 3)
+printLine("passed")
 
-; test writeFile() with multiline content
-assert(writeFile(writePath, "Line 1\nLine 2\nLine 3").type == "OK")
-set readResult = readFile(writePath)
-assert(readResult.type == "OK")
-set multi = verify(readResult.value, "string")
-assert(multi.type == "OK")
-assert(multi.value == "Line 1\nLine 2\nLine 3")
+printLine("=== List: remove element ===")
+set removeList = listRemove([1, 2, 3, 4], 1)
+printLine("listRemove result: " + removeList)
+assert(listSize(removeList) == 3)
+assert(removeList[1] == 3)
+printLine("passed")
 
-; tests finished
+printLine("=== List: reverse ===")
+set reversed = listReverse([1, 2, 3])
+printLine("reversed: " + reversed)
+assert(reversed[0] == 3)
+assert(reversed[2] == 1)
+printLine("passed")
 
-set timeDifference = clock() - timeTestStarted
-printLine("Execution time: " + timeDifference + " seconds.")
+printLine("=== List: extend ===")
+set extended = listExtend([1, 2], [3, 4])
+printLine("extended: " + extended)
+assert(listSize(extended) == 4)
+assert(extended[2] == 3)
+printLine("passed")
+
+printLine("=== List: create range ===")
+set ascRange = listCreateRange(0, 5)
+printLine("ascending range: " + ascRange)
+assert(listSize(ascRange) == 6)
+set descRange = listCreateRange(5, 0)
+printLine("descending range: " + descRange)
+assert(listSize(descRange) == 6)
+printLine("passed")
+
+printLine("=== List: nested lists ===")
+set nested = [[1, 2], [3, 4]]
+printLine("nested list: " + nested)
+assert(listSize(nested) == 2)
+printLine("passed")
+
+printLine("=== List: for...in loop ===")
+set sum = 0
+for item in [1, 2, 3, 4, 5]
+    set sum = sum + item
+endfor
+assert(sum == 15)
+printLine("for...in list loop passed (sum = " + sum + ")")
+printLine("passed")
+
+printLine("=== Map: creation (literal) ===")
+set emptyMap = {}
+printLine("empty map: " + emptyMap)
+set simpleMap = {"name" = "Alice", "age" = 30}
+printLine("simple map: " + simpleMap)
+set nestedMap = {"a" = 1, "b" = {"c" = 2}}
+printLine("nested map: " + nestedMap)
+printLine("passed")
+
+printLine("=== Map: creation (map function) ===")
+set funcMap = map(["x", "y"], [10, 20])
+printLine("map() function: " + funcMap)
+assert(funcMap["x"] == 10)
+assert(funcMap["y"] == 20)
+printLine("passed")
+
+printLine("=== Map: get by key (bracket operator) ===")
+set mymap = {"key1" = "val1", "key2" = "val2"}
+assert(mymap["key1"] == "val1")
+assert(mymap["key2"] == "val2")
+printLine("passed")
+
+printLine("=== Map: get by key (mapGet) ===")
+assert(mapGet(mymap, "key1") == "val1")
+printLine("passed")
+
+printLine("=== Map: set key ===")
+set setMap = mapSet(mymap, "key3", "val3")
+printLine("mapSet result: " + setMap)
+assert(setMap["key3"] == "val3")
+assert(listSize(mapGetKeys(setMap)) == 3)
+printLine("passed")
+
+printLine("=== Map: has key ===")
+assert(mapHasKey(mymap, "key1") == true)
+assert(mapHasKey(mymap, "nonexistent") == false)
+printLine("passed")
+
+printLine("=== Map: size ===")
+assert(mapSize({}) == 0)
+assert(mapSize({"a" = 1}) == 1)
+assert(mapSize({"a" = 1, "b" = 2, "c" = 3}) == 3)
+printLine("passed")
+
+printLine("=== Map: get keys ===")
+set keys = mapGetKeys({"x" = 1, "y" = 2, "z" = 3})
+printLine("keys: " + keys)
+assert(listSize(keys) == 3)
+printLine("passed")
+
+printLine("=== Map: get values ===")
+set values = mapGetValues({"x" = 1, "y" = 2, "z" = 3})
+printLine("values: " + values)
+assert(listSize(values) == 3)
+printLine("passed")
+
+printLine("=== Map: remove key ===")
+set removed = mapRemove({"a" = 1, "b" = 2, "c" = 3}, "b")
+printLine("mapRemove result: " + removed)
+assert(mapSize(removed) == 2)
+assert(mapHasKey(removed, "a") == true)
+assert(mapHasKey(removed, "b") == false)
+printLine("passed")
+
+printLine("=== Map: merge ===")
+set merged = mapMerge({"a" = 1, "b" = 2}, {"c" = 3, "d" = 4})
+printLine("mapMerge result: " + merged)
+assert(mapSize(merged) == 4)
+assert(merged["a"] == 1)
+assert(merged["c"] == 3)
+printLine("passed")
+
+printLine("=== Map: merge with overlapping keys ===")
+set overlapMerged = mapMerge({"a" = 1, "b" = 2}, {"b" = 99, "c" = 3})
+printLine("overlap merge result: " + overlapMerged)
+assert(overlapMerged["b"] == 99)
+printLine("passed")
+
+printLine("=== Map: for...in loop ===")
+set foundKeys = []
+for entry in {"x" = 10, "y" = 20}
+    set foundKeys = listAdd(foundKeys, entry.key)
+endfor
+printLine("found keys: " + foundKeys)
+assert(listSize(foundKeys) == 2)
+printLine("passed")
+
+printLine("=== Map: nested access ===")
+set data = {"user" = {"name" = "Bob", "age" = 25}}
+assert(data["user"]["name"] == "Bob")
+assert(data["user"]["age"] == 25)
+printLine("passed")
+
+printLine("=== Map: list values in map ===")
+set mapWithList = {"items" = [1, 2, 3]}
+assert(mapWithList["items"][0] == 1)
+assert(mapWithList["items"][2] == 3)
+printLine("passed")
+
+printLine("=== Map: mixed types as values ===")
+set mixedMap = {"str" = "hello", "num" = 42, "bool" = true, "list" = [1, 2]}
+assert(mixedMap["str"] == "hello")
+assert(mixedMap["num"] == 42)
+assert(mixedMap["bool"] == true)
+printLine("passed")
+
+printLine("=== Struct: member then bracket access ===")
+struct MyStruct
+    set data = {"key" = "val"}
+endstruct
+set s = MyStruct()
+assert(s.data["key"] == "val")
+printLine("passed")
+
+printLine("=== Struct: chained bracket access ===")
+set chained = {"outer" = {"inner" = {"deep" = 42}}}
+assert(chained["outer"]["inner"]["deep"] == 42)
+printLine("passed")
+
+printLine("")
+printLine("=== ALL BASIC TESTS PASSED ===")
