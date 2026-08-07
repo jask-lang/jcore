@@ -1,0 +1,26 @@
+printLine("=== RUN ALL TEST FILES ===")
+
+use "test_basics.jask" as tb
+
+printLine("")
+
+use "test_date.jask" as td
+
+printLine("")
+
+use "test_io.jask" as ti
+
+printLine("")
+
+use "test_math.jask" as tm
+
+printLine("")
+
+use "test_string.jask" as ts
+
+printLine("")
+
+use "test_verify.jask" as tv
+
+printLine("")
+printLine("=== ALL BASIC TESTS PASSED ===")
