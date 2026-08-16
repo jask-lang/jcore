@@ -1,25 +1,25 @@
 ; jask math implementation
 
-function max(n1: number, n2: number)
+export function max(n1: number, n2: number)
     if n1 > n2 return n1 endif
     if n2 > n1 return n2 endif
 
     return n1
 endfunction
 
-function min(n1: number, n2: number)
+export function min(n1: number, n2: number)
     if n1 < n2 return n1 endif
     if n2 < n1 return n2 endif
 
     return n1
 endfunction
 
-function absolute(n: number)
+export function absolute(n: number)
     if n < 0 return -n endif
     return n
 endfunction
 
-function power(base: number, exponent: number)
+export function power(base: number, exponent: number)
     ; edge case, 0^0 is mathematically undefined, often handled as 1
     if base == 0 and exponent == 0 return 1 endif
 
@@ -65,7 +65,7 @@ endfunction
 ; This algorithm uses floating-point numbers, which inherently cause small precision errors due to the binary
 ; representation of decimal fractions under IEEE 754 standard.
 ; If you check the results of this, you are adviced to use an approximation.
-function root(x: number, n: number)
+export function root(x: number, n: number)
     ; edge case, 0th root is not defined
     if n == 0 return nil endif
 
@@ -113,11 +113,11 @@ function root(x: number, n: number)
     return guess
 endfunction
 
-function squareroot(x: number)
+export function squareroot(x: number)
     return root(x, 2)
 endfunction
 
-function fibonacci(n: number)
+export function fibonacci(n: number)
     if n <= 1 return n endif
     set a = 0
     set b = 1
@@ -132,7 +132,7 @@ function fibonacci(n: number)
 endfunction
 
 ; Optimized primality test using wheel factorization.
-function isPrime(n: number)
+export function isPrime(n: number)
     if n <= 1 return false endif
     if n <= 3 return true endif
     if (n % 2) == 0 or (n % 3) == 0 return false endif

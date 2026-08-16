@@ -3,12 +3,12 @@
 ; Uses charCount / charAt for proper code point iteration
 
 ; Returns the length of the string
-function length(s: string)
+export function length(s: string)
     return charCount(s)
 endfunction
 
 ; Returns the index of the first occurrence of substring in s, or -1 if not found
-function indexOf(s: string, substring: string)
+export function indexOf(s: string, substring: string)
     set subLen = length(substring)
     set sLen = length(s)
     if subLen == 0 return 0 endif
@@ -35,7 +35,7 @@ function indexOf(s: string, substring: string)
 endfunction
 
 ; Returns a substring starting at index with the given length
-function substring(s: string, index: number, length: number)
+export function substring(s: string, index: number, length: number)
     set sLen = length(s)
     if index < 0 or index > sLen return "" endif
     if length <= 0 return "" endif
@@ -54,7 +54,7 @@ function substring(s: string, index: number, length: number)
 endfunction
 
 ; Converts the string to uppercase
-function toUpper(s: string)
+export function toUpper(s: string)
     set result = ""
     set i = 0
     while i < length(s)
@@ -65,7 +65,7 @@ function toUpper(s: string)
 endfunction
 
 ; Converts the string to lowercase
-function toLower(s: string)
+export function toLower(s: string)
     set result = ""
     set i = 0
     while i < length(s)
@@ -76,12 +76,12 @@ function toLower(s: string)
 endfunction
 
 ; Removes leading and trailing whitespace
-function trim(s: string)
+export function trim(s: string)
     return trimRight(trimLeft(s))
 endfunction
 
 ; Removes leading whitespace
-function trimLeft(s: string)
+export function trimLeft(s: string)
     set i = 0
     while i < length(s)
         set code = charCode(charAt(s, i))
@@ -94,7 +94,7 @@ function trimLeft(s: string)
 endfunction
 
 ; Removes trailing whitespace
-function trimRight(s: string)
+export function trimRight(s: string)
     set i = length(s) - 1
     while i >= 0
         set code = charCode(charAt(s, i))
@@ -107,7 +107,7 @@ function trimRight(s: string)
 endfunction
 
 ; Splits the string into a list by delimiter
-function split(s: string, delimiter: string)
+export function split(s: string, delimiter: string)
     set result = []
     set delimLen = length(delimiter)
     set sLen = length(s)
@@ -135,7 +135,7 @@ function split(s: string, delimiter: string)
 endfunction
 
 ; Joins a list of strings with a delimiter
-function join(list: list, delimiter: string)
+export function join(list: list, delimiter: string)
     set result = ""
     set i = 0
     while i < listSize(list)
@@ -149,12 +149,12 @@ function join(list: list, delimiter: string)
 endfunction
 
 ; Returns true if the string contains the substring
-function contains(s: string, substring: string)
+export function contains(s: string, substring: string)
     return indexOf(s, substring) != -1
 endfunction
 
 ; Returns true if the string starts with the prefix
-function startsWith(s: string, prefix: string)
+export function startsWith(s: string, prefix: string)
     set prefixLen = length(prefix)
     if prefixLen > length(s) return false endif
     if prefixLen == 0 return true endif
@@ -162,7 +162,7 @@ function startsWith(s: string, prefix: string)
 endfunction
 
 ; Returns true if the string ends with the suffix
-function endsWith(s: string, suffix: string)
+export function endsWith(s: string, suffix: string)
     set suffixLen = length(suffix)
     set sLen = length(s)
     if suffixLen > sLen return false endif
@@ -171,7 +171,7 @@ function endsWith(s: string, suffix: string)
 endfunction
 
 ; Replaces all occurrences of old with new in the string
-function replace(s: string, old: string, newStr: string)
+export function replace(s: string, old: string, newStr: string)
     set oldLen = length(old)
     if oldLen == 0 return s endif
 
@@ -195,7 +195,7 @@ function replace(s: string, old: string, newStr: string)
 endfunction
 
 ; Replaces only the first occurrence of old with new in the string
-function replaceFirst(s: string, old: string, newStr: string)
+export function replaceFirst(s: string, old: string, newStr: string)
     set oldLen = length(old)
     if oldLen == 0 return s endif
 
@@ -210,7 +210,7 @@ function replaceFirst(s: string, old: string, newStr: string)
 endfunction
 
 ; Counts the number of occurrences of substring in the string
-function count(s: string, substring: string)
+export function count(s: string, substring: string)
     set subLen = length(substring)
     if subLen == 0 return 0 endif
 
@@ -232,7 +232,7 @@ function count(s: string, substring: string)
 endfunction
 
 ; Pads the string on the left to reach the target width
-function padLeft(s: string, width: number, padChar: string)
+export function padLeft(s: string, width: number, padChar: string)
     set sLen = length(s)
     if sLen >= width return s endif
 
@@ -252,7 +252,7 @@ function padLeft(s: string, width: number, padChar: string)
 endfunction
 
 ; Pads the string on the right to reach the target width
-function padRight(s: string, width: number, padChar: string)
+export function padRight(s: string, width: number, padChar: string)
     set sLen = length(s)
     if sLen >= width return s endif
 
@@ -272,7 +272,7 @@ function padRight(s: string, width: number, padChar: string)
 endfunction
 
 ; Centers the string within the target width
-function padCenter(s: string, width: number, padChar: string)
+export function padCenter(s: string, width: number, padChar: string)
     set sLen = length(s)
     if sLen >= width return s endif
 
@@ -303,7 +303,7 @@ function padCenter(s: string, width: number, padChar: string)
 endfunction
 
 ; Repeats the string n times
-function repeat(s: string, n: number)
+export function repeat(s: string, n: number)
     set result = ""
     set i = 0
     while i < n
@@ -314,7 +314,7 @@ function repeat(s: string, n: number)
 endfunction
 
 ; Reverses the string
-function reverse(s: string)
+export function reverse(s: string)
     set result = ""
     set i = length(s) - 1
     while i >= 0
@@ -325,12 +325,12 @@ function reverse(s: string)
 endfunction
 
 ; Checks if the string is empty
-function isEmpty(s: string)
+export function isEmpty(s: string)
     return length(s) == 0
 endfunction
 
 ; Checks if the string contains only alphabetic characters (Unicode-aware)
-function isAlpha(s: string)
+export function isAlpha(s: string)
     if length(s) == 0 return false endif
     set i = 0
     while i < length(s)
@@ -344,7 +344,7 @@ function isAlpha(s: string)
 endfunction
 
 ; Checks if the string contains only numeric digits
-function isNumeric(s: string)
+export function isNumeric(s: string)
     if length(s) == 0 return false endif
     set i = 0
     while i < length(s)
@@ -358,7 +358,7 @@ function isNumeric(s: string)
 endfunction
 
 ; Checks if the string contains only alphanumeric characters
-function isAlphanumeric(s: string)
+export function isAlphanumeric(s: string)
     if length(s) == 0 return false endif
     set i = 0
     while i < length(s)
@@ -377,7 +377,7 @@ function isAlphanumeric(s: string)
 endfunction
 
 ; Checks if the string contains only whitespace characters
-function isWhitespace(s: string)
+export function isWhitespace(s: string)
     if length(s) == 0 return false endif
     set i = 0
     while i < length(s)
@@ -391,14 +391,14 @@ function isWhitespace(s: string)
 endfunction
 
 ; Capitalizes the first character of the string
-function capitalize(s: string)
+export function capitalize(s: string)
     if length(s) == 0 return s endif
     set first = charToUpper(charAt(s, 0))
     return first + substring(s, 1, length(s) - 1)
 endfunction
 
 ; Capitalizes the first letter of each word in the string
-function titleCase(s: string)
+export function titleCase(s: string)
     set result = ""
     set nextIsCapital = true
     set i = 0
@@ -423,7 +423,7 @@ endfunction
 
 ; Formats a string by replacing placeholders with values
 ; Example: stringFormat("Hello {0}, you are {1} years old.", list("Alice", 30))
-function stringFormat(template: string, args: list)
+export function stringFormat(template: string, args: list)
     set result = template
     set i = 0
     while i < listSize(args)
