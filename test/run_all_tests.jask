@@ -1,3 +1,5 @@
+set c = clock()
+
 printLine("=== RUN ALL TEST FILES ===")
 
 use "test_basics.jask" as tb
@@ -24,3 +26,5 @@ use "test_verify.jask" as tv
 
 printLine("")
 printLine("=== ALL BASIC TESTS PASSED ===")
+
+printLine("Runtime: " + (clock() - c))
