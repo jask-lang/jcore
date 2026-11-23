@@ -281,7 +281,7 @@ export function getStringFromDate(date: Date)
 endfunction
 
 export function print(date: Date)
-    print(stringFromDate(date))
+    print(getStringFromDate(date))
 endfunction
 
 export function printLine(date: Date)
