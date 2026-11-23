@@ -35,7 +35,8 @@ endstruct
 set bmw = Car(name = "BMW", hp = 120)
 assert(type(bmw) == "Car")
 assert(bmw.name == "BMW")
-set mercedes = bmw update name = "Mercedes"
+set mercedes = bmw
+set mercedes.name = "Mercedes"
 assert(mercedes.name == "Mercedes")
 printLine("passed")
 
